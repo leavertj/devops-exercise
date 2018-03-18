@@ -20,3 +20,5 @@ After the services have started you can test that the endpoints are healthy usin
 ```sh
 $ curl http://localhost/api/auth/health
 ```
+
+Test Users can be added [here](mongo_init/src/users.json)
