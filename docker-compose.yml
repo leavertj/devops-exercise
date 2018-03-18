@@ -1,0 +1,32 @@
+mongodb:
+  image: mongo:latest
+
+dataservice:
+  build: data_service/
+  environment:
+    MONGODB: mongodb://mongodb:27017/
+  links:
+    - mongodb
+
+authservice:
+  build: auth_service/
+  environment:
+    MONGODB: mongodb://mongodb:27017/
+  links:
+    - mongodb
+
+gateway:
+  build: gateway/
+  links:
+    - dataservice
+    - authservice
+  ports:
+    - 80:80
+
+test:
+  build: mongo_init/
+  links:
+    - mongodb
+    - gateway
+  environment:
+    MONGODB: mongodb://mongodb:27017/auth
